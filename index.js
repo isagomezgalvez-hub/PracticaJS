@@ -1,52 +1,7 @@
-const totalTeams = ['Brasil', 'Ecuador', 'Japón', 'Francia', 'Inglaterra', 'Argentina', 'Holanda',
-	'Alemania', 'España', 'Jamaica', 'Portugal', 'Suecia', 'Suiza',
-	'México', 'Costa Rica', 'Corea del Sur', 'Arabia Saudita', 'Marruecos', 'Islandia', 'Senegal',
-	'Nigeria', 'Croacia', 'Bélgica', 'Irán', 'Australia', 'Túnez', 'Panamá', 'Uruguay', 'Colombia',
-	'Egipto', 'Dinamarca', 'Rusia']
-
-const shuffled = totalTeams.sort(() => Math.random() - 0.5)
-const teamSelected = shuffled.slice(0, 16)
 
 
-//JUGAR PARTIDO 
-class Partido {
-	constructor(localTeam, awayTeam) {
-		this.localTeam = localTeam
-		this.awayTeam = awayTeam
-	}
-
-	play() {
-		// genera los goles aleatorios
-		const goals = {
-			goalsHomeTeam: Math.floor(Math.random() * (10 - 1) + 1),
-			goalsAwayTeam: Math.floor(Math.random() * (10 - 1) + 1)
-		}
-		if (goals.goalsHomeTeam > goals.goalsAwayTeam) { // gana equipo local
-			const homeWinner = this.localTeam
-			return {
-				nameHomeTeam: this.localTeam,
-				goalsHomeTeam: goals.goalsHomeTeam,
-				nameAwayTeam: this.awayTeam,
-				goalsAwayTeam: goals.goalsAwayTeam,
-				winner: homeWinner,
-			}
-		}
-		else if (goals.goalsHomeTeam < goals.goalsAwayTeam) { // gana equipo visitante
-			const awayWinner = this.awayTeam
-			return {
-				nameHomeTeam: this.localTeam,
-				goalsHomeTeam: goals.goalsHomeTeam,
-				nameAwayTeam: this.awayTeam,
-				goalsAwayTeam: goals.goalsAwayTeam,
-				winner: awayWinner,
-			}
-		} else { // empate
-			while (goals.goalsHomeTeam === goals.goalsAwayTeam) {
-				return this.play()
-			}
-		}
-	}
-}
+import { teamSelected } from './team.js'
+import { totalTeams } from './team.js'
 
 console.log(' ')
 console.log('===============================================')
@@ -60,10 +15,14 @@ teamSelected.forEach(element => {
 	console.log(`${element}`)
 })
 
+//JUGAR PARTIDO 
+import Partido from './classes/Play.js'
+
 
 //OCTAVOS
 const fase = []
 let localTeam = null
+let awayTeam = null
 for (const team of teamSelected) {
 	if (localTeam === null) {
 		//Si no tengo equipo local
@@ -81,14 +40,16 @@ for (const team of teamSelected) {
 const octavos = []
 for (const item of fase) {
 	const match = new Partido(
-		this.localTeam = item.nameLocalTeam,
-		this.awayTeam = item.nameawayTeam
+		localTeam = item.nameLocalTeam,
+		awayTeam = item.nameawayTeam
 	)
 	octavos.push(match.play())
 }
 
 let resultados = []
 const ganadoresOctavos = octavos.map(e => e.winner)
+
+
 console.log(' ')
 console.log(' ===== OCTAVOS DE FINAL ===== ')
 console.log(' ')
@@ -96,7 +57,6 @@ octavos.forEach(result => {
 	console.log(`${result.nameHomeTeam} ${result.goalsHomeTeam} - ${result.nameAwayTeam} ${result.goalsAwayTeam} ${'=>'} ${result.winner}`)
 	resultados.push(result)
 })
-
 
 // CUARTOS
 
@@ -118,8 +78,8 @@ for (const item of ganadoresOctavos) {
 const cuartos = []
 for (const item of faseCuartos) {
 	const match = new Partido(
-		this.localTeam = item.nameLocalTeam,
-		this.awayTeam = item.nameawayTeam
+		localTeam = item.nameLocalTeam,
+		awayTeam = item.nameawayTeam
 	)
 	cuartos.push(match.play())
 }
@@ -154,8 +114,8 @@ for (const item of ganadoresCuartos) {
 const Semifinal = []
 for (const item of faseSemifinal) {
 	const match = new Partido(
-		this.localTeam = item.nameLocalTeam,
-		this.awayTeam = item.nameawayTeam
+		localTeam = item.nameLocalTeam,
+		awayTeam = item.nameawayTeam
 	)
 	Semifinal.push(match.play())
 }
@@ -191,8 +151,8 @@ for (const item of ganadores) {
 const Final = []
 for (const item of faseFinal) {
 	const match = new Partido(
-		this.localTeam = item.nameLocalTeam,
-		this.awayTeam = item.nameawayTeam
+		localTeam = item.nameLocalTeam,
+		awayTeam = item.nameawayTeam
 	)
 	Final.push(match.play())
 }
