@@ -18,26 +18,33 @@ teamSelected.forEach(element => {
 //JUGAR PARTIDO 
 import Partido from './classes/Play.js'
 
-
 //OCTAVOS
-const fase = []
 let localTeam = null
 let awayTeam = null
-for (const team of teamSelected) {
-	if (localTeam === null) {
-		//Si no tengo equipo local
-		localTeam = team //guardo equipo local
-	}
-	else {//Si si tengo equipo local
-		const match = { //Montar el partido 
-			nameLocalTeam: localTeam,
-			nameawayTeam: team,
+
+function calcularEquipos(fase, sigFase) {
+	sigFase = []
+	let localTeam = null
+	let awayTeam = null
+	for (const team of fase) {
+		if (localTeam === null) {
+			//Si no tengo equipo local
+			localTeam = team //guardo equipo local
 		}
-		fase.push(match)//Añadir el partido a la fase
-		localTeam = null //Volver a indicar que no tengo equipo local
+		else {//Si si tengo equipo local
+			const match = { //Montar el partido 
+				nameLocalTeam: localTeam,
+				nameawayTeam: team,
+			}
+			sigFase.push(match)//Añadir el partido a la fase
+			localTeam = null //Volver a indicar que no tengo equipo local
+		}
 	}
+	return sigFase
 }
+let fase = calcularEquipos(teamSelected)
 const octavos = []
+
 for (const item of fase) {
 	const match = new Partido(
 		localTeam = item.nameLocalTeam,
@@ -45,11 +52,8 @@ for (const item of fase) {
 	)
 	octavos.push(match.play())
 }
-
 let resultados = []
 const ganadoresOctavos = octavos.map(e => e.winner)
-
-
 console.log(' ')
 console.log(' ===== OCTAVOS DE FINAL ===== ')
 console.log(' ')
@@ -59,24 +63,9 @@ octavos.forEach(result => {
 })
 
 // CUARTOS
-
-const faseCuartos = []
-localTeam = null
-for (const item of ganadoresOctavos) {
-	if (localTeam === null) {
-		localTeam = item
-	}
-	else {
-		const match = {
-			nameLocalTeam: localTeam,
-			nameawayTeam: item,
-		}
-		faseCuartos.push(match)
-		localTeam = null
-	}
-}
+fase = calcularEquipos(ganadoresOctavos)
 const cuartos = []
-for (const item of faseCuartos) {
+for (const item of fase) {
 	const match = new Partido(
 		localTeam = item.nameLocalTeam,
 		awayTeam = item.nameawayTeam
@@ -95,31 +84,15 @@ cuartos.forEach(result => {
 
 
 // SEMIFINALES
-const faseSemifinal = []
-localTeam = null
-for (const item of ganadoresCuartos) {
-	if (localTeam === null) {
-		localTeam = item
-	}
-	else {
-		const match = {
-			nameLocalTeam: localTeam,
-			nameawayTeam: item,
-		}
-		faseSemifinal.push(match)
-		localTeam = null
-	}
-}
-
+fase = calcularEquipos(ganadoresCuartos)
 const Semifinal = []
-for (const item of faseSemifinal) {
+for (const item of fase) {
 	const match = new Partido(
 		localTeam = item.nameLocalTeam,
 		awayTeam = item.nameawayTeam
 	)
 	Semifinal.push(match.play())
 }
-
 
 const ganadores = Semifinal.map(e => e.winner)
 resultados = []
@@ -132,24 +105,9 @@ Semifinal.forEach(result => {
 })
 
 // FINAL
-const faseFinal = []
-localTeam = null
-for (const item of ganadores) {
-	if (localTeam === null) {
-		localTeam = item
-	}
-	else {
-		const match = {
-			nameLocalTeam: localTeam,
-			nameawayTeam: item,
-		}
-		faseFinal.push(match)
-		localTeam = null
-	}
-}
-
+fase = calcularEquipos(ganadores)
 const Final = []
-for (const item of faseFinal) {
+for (const item of fase) {
 	const match = new Partido(
 		localTeam = item.nameLocalTeam,
 		awayTeam = item.nameawayTeam
@@ -181,4 +139,24 @@ console.log('=================================== ')
 console.log(ganador[0], '=>' + ' ' + 'Equipo campeón del mundo.')
 console.log('=================================== ')
 console.log(' ')
+
+
+/* const fase = []
+let localTeam = null
+let awayTeam = null
+for (const team of teamSelected) {
+	if (localTeam === null) {
+		//Si no tengo equipo local
+		localTeam = team //guardo equipo local
+	}
+	else {//Si si tengo equipo local
+		const match = { //Montar el partido
+			nameLocalTeam: localTeam,
+			nameawayTeam: team,
+		}
+		fase.push(match)//Añadir el partido a la fase
+		localTeam = null //Volver a indicar que no tengo equipo local
+	}
+} */
+
 
