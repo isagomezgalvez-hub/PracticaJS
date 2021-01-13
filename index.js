@@ -88,6 +88,61 @@ Semifinal.forEach(result => {
 	resultados.push(result)
 })
 
+
+// 3 y 4 PUESTO 
+const perdedores = []
+Semifinal.forEach(element => {
+	if (element.nameHomeTeam !== element.winner) {
+		const HomeTeam = element.nameHomeTeam
+		perdedores.push(HomeTeam)
+	}
+	else if (element.nameAwayTeam !== element.winner) {
+		const AwayTeam = element.nameAwayTeam
+		perdedores.push(AwayTeam)
+	}
+});
+fase = calcularEquipos(perdedores)
+const clasificacionPerdedores = []
+for (const item of fase) {
+	const match = new Partido(
+		localTeam = item.nameLocalTeam,
+		awayTeam = item.nameawayTeam
+	)
+	clasificacionPerdedores.push(match.play())
+}
+
+console.log(' ')
+console.log('===== TERCER Y CUARTO PUESTO =====')
+console.log(' ')
+
+clasificacionPerdedores.forEach(result => {
+	console.log(`${result.nameHomeTeam} ${result.goalsHomeTeam} - ${result.nameAwayTeam} ${result.goalsAwayTeam} ${'=>'} ${result.winner}`)
+	resultados.push(result)
+})
+
+/*
+let tercerPuesto = null
+let cuartoPuesto = null
+
+clasificacionPerdedores.forEach(element => {
+	if (element.nameHomeTeam === element.winner) {
+		tercerPuesto = (element.nameHomeTeam)
+	}
+	else {
+		tercerPuesto = (element.nameAwayTeam)
+	}
+});
+clasificacionPerdedores.forEach(element => {
+	if (element.nameHomeTeam !== element.winner) {
+		cuartoPuesto = (element.nameHomeTeam)
+	}
+	else {
+		cuartoPuesto = (element.nameAwayTeam)
+	}
+}); */
+
+
+
 // FINAL
 fase = calcularEquipos(ganadores)
 const Final = []
@@ -113,7 +168,7 @@ function resultadosFinal() {
 }
 
 console.log(' ')
-console.log('======= FINAL =======')
+console.log('============ FINAL ===========')
 console.log(' ')
 console.log(resultadosFinal())
 console.log(' ')
@@ -122,5 +177,6 @@ console.log('=================================== ')
 console.log(ganador[0], '=>' + ' ' + 'Equipo campeón del mundo.')
 console.log('=================================== ')
 console.log(' ')
+
 
 
