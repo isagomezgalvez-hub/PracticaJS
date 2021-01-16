@@ -7,7 +7,7 @@ export default function calcularEquipos(fase, sigFase) {
 			//Si no tengo equipo local
 			localTeam = team //guardo equipo local
 		}
-		else {//Si si tengo equipo local
+		else {//Si ya tengo equipo local
 			const match = { //Montar el partido 
 				nameLocalTeam: localTeam,
 				nameawayTeam: team,
